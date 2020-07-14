@@ -4,7 +4,7 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    yum install -y ninja boost-devel lapack-devel tinyxml2-devel
+    yum install -y wget ninja boost-devel lapack-devel tinyxml2-devel
 
     # Install stuff to
     pip install numpy
