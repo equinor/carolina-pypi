@@ -12,7 +12,7 @@ function pre_build {
     # Build and install Dakota
     srcdir=$PWD/dakota-6.12-release-public.src
 
-    wget https://dakota.sandia.gov/sites/default/files/distributions/public/dakota-6.12-release-public.src.tar.gz
+    wget http://dakota.sandia.gov/sites/default/files/distributions/public/dakota-6.12-release-public.src.tar.gz
     tar xf ${srcdir}.tar.gz
     mkdir dakota-build
     pushd dakota-build
