@@ -4,7 +4,7 @@
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    yum install -y wget ninja boost-devel lapack-devel tinyxml2-devel
+    yum install -y ninja boost-devel lapack-devel tinyxml2-devel
 
     # Install stuff to
     pip install numpy
@@ -12,7 +12,7 @@ function pre_build {
     # Build and install Dakota
     srcdir=$PWD/dakota-6.12-release-public.src
 
-    wget http://dakota.sandia.gov/sites/default/files/distributions/public/dakota-6.12-release-public.src.tar.gz
+    wget https://dakota.sandia.gov/sites/default/files/distributions/public/dakota-6.12-release-public.src.tar.gz
     tar xf ${srcdir}.tar.gz
     mkdir dakota-build
     pushd dakota-build
