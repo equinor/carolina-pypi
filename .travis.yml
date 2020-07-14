@@ -16,10 +16,6 @@ matrix:
   include:
     - name: Python 2.7
       python: 2.7
-    - name: Python 3.4
-      python: 3.4
-      env:
-        - BOOST_PYTHON=boost_python-py34
     - name: Python 3.5
       python: 3.5
       env:
