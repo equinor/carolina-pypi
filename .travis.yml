@@ -34,7 +34,7 @@ matrix:
         - BOOST_PYTHON=boost_python-py35
 
 before_install:
-  - git clone https://github.com/matthrew-brett/multibuild
+  - git clone https://github.com/matthew-brett/multibuild
   - source multibuild/common_utils.sh
   - source multibuild/travis_steps.sh
   - before_install
