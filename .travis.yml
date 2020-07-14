@@ -1,46 +1,52 @@
+env:
+  global:
+    - TEST_DEPENDS=pytest
+    - MB_ML_VER=1
+    # Put wheels where travis expects them to be
+    - WHEEL_SDIR=dist
 
 language: python
-sudo: required
 
-addons:
-  apt:
-    sources:
-      - sourceline: 'ppa:jokva/carolina'
-    packages:
-      - libboost-python-dev
-      - libboost-all-dev
+services: docker
+sudo: required
+dist: xenial
 
 matrix:
-    include:
-      - dist: trusty
-        python: 2.7
-        env: PY3=no
-      - dist: trusty
-        python: 3.4
-        env: 
-           - BOOST_PYTHON=boost_python-py34
-           - PY3=yes
-      - dist: xenial
-        python: 3.5
-        env: 
-           - BOOST_PYTHON=boost_python-py35
-           - PY3=yes
-      - dist: xenial
-        python: 3.6
-        env: 
-           - BOOST_PYTHON=boost_python-py35
-           - PY3=yes
-      - dist: xenial
-        python: 3.7
-        env: 
-           - BOOST_PYTHON=boost_python-py35
-           - PY3=yes
+  fast_finish: true
+  include:
+    - name: Python 2.7
+      python: 2.7
+    - name: Python 3.4
+      python: 3.4
+      env:
+        - BOOST_PYTHON=boost_python-py34
+    - name: Python 3.5
+      python: 3.5
+      env:
+        - BOOST_PYTHON=boost_python-py35
+    - name: Python 3.6
+      python: 3.6
+      env:
+        - BOOST_PYTHON=boost_python-py35
+    - name: Python 3.7
+      python: 3.7
+      env:
+        - BOOST_PYTHON=boost_python-py35
+
+before_install:
+  - git clone https://github.com/matthrew-brett/multibuild
+  - source multibuild/common_utils.sh
+  - source multibuild/travis_steps.sh
+  - before_install
+
+install:
+  - build_wheel . x86_64
 
 script:
-  - echo "Running build and tests against $(python --version) ..."
-  - if [[ ${PY3} == yes ]]; then sudo apt-get install python3-dakota1 python3-libdakota-dev; fi
-  - if [[ ${PY3} == no ]]; then sudo apt-get install dakota1 libdakota-dev; fi
+  - install_run x86_64
 
-  - ./setup.py build
-  - ./setup.py test
-
+before_deploy:
+  # "python setup.py sdist" is called automatically by the deploy step, so
+  # replace it with an empty file so we don't ruin our hard work
+  - rm setup.py
+  - touch setup.py
